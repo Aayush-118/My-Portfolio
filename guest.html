@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aayush's Portfolio - Guest View</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
+    
+    <style>
+       html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #575252bc;
+             background: linear-gradient(
+           rgba(20, 20, 20, 0.861), 
+           rgba(20, 20, 20, 0.95)
+    ),
+    url('https://aldianews.com/sites/default/files/articles/619306-bg-full-netflix-grid-v2.desktop.jpg') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        .font-bebas {
+            font-family: 'Bebas Neue', cursive;
+        }
+
+        .navbar {
+            background: linear-gradient(to bottom, rgba(20, 20, 20, 1) 0%, rgba(20, 20, 20, 0) 100%);
+        }
+
+        .hero-section {
+            position: relative;
+            background-color: transparent; /* Changed to transparent to show body background */
+        }
+        
+        #threejs-hero {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-fade {
+            height: 7rem;
+            background: linear-gradient(to top, #141414 20%, transparent 100%);
+            margin-top: -7rem;
+            position: relative;
+        }
+
+        /* Corrected the issue with the 'Who I Am' section */
+        .who-i-am-section, .profile-link-card, .project-card {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .who-i-am-section.visible, .profile-link-card.visible, .project-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    </style>
+</head>
+<body class="text-white">
+
+    <!-- Navigation Bar -->
+    <nav class="navbar fixed top-0 left-0 right-0 z-30 px-4 md:px-12 py-4 flex justify-between items-center">
+        <h1 class="font-bebas text-4xl tracking-widest text-red-600">AAYUSH</h1>
+        <div class="flex items-center space-x-4">
+            <span class="text-gray-300">Welcome, Guest</span>
+            <img src="https://placehold.co/32x32/3B82F6/FFFFFF?text=G" alt="Guest Profile" class="w-8 h-8 rounded">
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-section h-screen flex items-center justify-center text-center">
+        <!-- Canvas for Three.js animation -->
+        <canvas id="threejs-hero"></canvas>
+        <div class="px-4 md:px-16 max-w-3xl hero-content">
+            <h2 class="text-5xl md:text-7xl font-extrabold leading-tight">Welcome to My Digital Space</h2>
+            <p class="mt-4 text-lg md:text-xl text-gray-300">
+                A brief look into my world of code, design, and innovation.
+            </p>
+            <button id="explore-btn" class="mt-8 bg-red-600 text-white font-bold px-10 py-4 rounded hover:bg-red-700 transition-colors text-lg">
+                Explore My Work
+            </button>
+        </div>
+    </header>
+    <div class="hero-fade"></div>
+
+    <!-- Content Section -->
+    <main class="px-4 md:px-12 space-y-16 pb-20">
+        <!-- Who I Am Section -->
+        <div class="who-i-am-section">
+            <h3 class="text-3xl font-bold mb-6 text-center">Who I Am</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- LinkedIn Card -->
+                <a href="https://www.linkedin.com/in/aayush-walsangikar-00aa10278/" target="_blank" rel="noopener" class="profile-link-card bg-[#181818] p-6 rounded-lg flex flex-col items-center text-center">
+                    <i class="fab fa-linkedin-in text-5xl text-blue-500 mb-4"></i>
+                    <h4 class="text-xl font-bold">LinkedIn</h4>
+                    <p class="text-gray-400 mt-2">View my professional network and experience.</p>
+                </a>
+                <!-- GitHub Card -->
+                <a href="https://github.com/Aayush-W" target="_blank" rel="noopener" class="profile-link-card bg-[#181818] p-6 rounded-lg flex flex-col items-center text-center">
+                    <i class="fab fa-github text-5xl text-white mb-4"></i>
+                    <h4 class="text-xl font-bold">GitHub</h4>
+                    <p class="text-gray-400 mt-2">See my code, projects, and contributions.</p>
+                </a>
+                <!-- Contact Card -->
+                <a href="mailto:aayushwalsangikar118@gmail.com" class="profile-link-card bg-[#181818] p-6 rounded-lg flex flex-col items-center text-center">
+                    <i class="fas fa-envelope text-5xl text-red-500 mb-4"></i>
+                    <h4 class="text-xl font-bold">Get In Touch</h4>
+                    <p class="text-gray-400 mt-2">Have a question or want to collaborate? Let's talk.</p>
+                </a>
+            </div>
+        </div>
+
+        <!-- Quick Look Section -->
+        <div id="projects-section">
+            <h3 class="text-3xl font-bold mb-8 text-center">A Quick Look at My Work</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                 <!-- Project Card 1 -->
+                <div class="project-card bg-[#181818] rounded-lg overflow-hidden group">
+                    <img src="APG.jpg" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" alt="Project 1">
+                    <div class="p-6">
+                        <h4 class="text-2xl font-bold">Accident Prevention Glasses</h4>
+                        <p class="text-gray-400 mt-2">A Deep research on wearable ergonomics, power consumption analysis using BLE, cost effective solution, with brain stimulating frequencies haptic alerts and feedbacks keeps the driver to stay awake and prevents accidents.</p>
+                    </div>
+                </div>
+                 <!-- Project Card 2 -->
+                <div class="project-card bg-[#181818] rounded-lg overflow-hidden group">
+                    <img src="Tableau dashboard.jpg" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" alt="Project 2">
+                    <div class="p-6">
+                        <h4 class="text-2xl font-bold">Tableau Dashboard</h4>
+                        <p class="text-gray-400 mt-2">This dashboard, titled 'IMDB', offers a multi-faceted analysis of movies, focusing on ratings, commercial success, production trends, and genre characteristics. It effectively uses six distinct visualizations to present key insights from the data.</p>
+                    </div>
+                </div>
+                 <!-- Project Card 3 -->
+                <div class="project-card bg-[#181818] rounded-lg overflow-hidden group">
+                    <img src="output of Aiml project.jpg" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" alt="Project 3">
+                    <div class="p-6">
+                        <h4 class="text-2xl font-bold">Accident Severity Prediction Using AIML</h4>
+                        <p class="text-gray-400 mt-2">This project tackles the critical task of predicting traffic accident severity by developing two distinct classification models from a real-world dataset. I implemented powerful ensemble methods like Stacking and Voting classifiers, combining algorithms such as RandomForest, XGBoost, and AdaBoost.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="text-center py-8 border-t border-gray-800">
+        <p class="text-gray-500">© 2025 Aayush. All Rights Reserved by Myself.</p>
+        <p class="text-gray-500 mt-2">Built with passion, inspired by Netflix.</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // --- Scroll to Projects ---
+        document.getElementById('explore-btn').addEventListener('click', () => {
+            document.getElementById('projects-section').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // --- Intersection Observer for Scroll Animations ---
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Optional: unobserve after animation
+                    // observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('.who-i-am-section, .profile-link-card, .project-card').forEach(element => {
+            scrollObserver.observe(element);
+        });
+
+        // --- Three.js Hero Animation ---
+        window.onload = function() {
+            try {
+                const canvas = document.getElementById('threejs-hero');
+                if (!canvas) {
+                    console.error('Three.js canvas not found.');
+                    return;
+                }
+
+                // Scene, Camera, Renderer
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+                const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.setClearColor(0x000000, 0); // Transparent background
+
+                // Handle window resizing
+                window.addEventListener('resize', () => {
+                    camera.aspect = window.innerWidth / window.innerHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+                });
+
+                // Particle System
+                const particlesGeometry = new THREE.BufferGeometry();
+                const particlesCount = 5000;
+                const positions = new Float32Array(particlesCount * 3);
+                const sizes = new Float32Array(particlesCount);
+                const colors = new Float32Array(particlesCount * 3);
+
+                const color1 = new THREE.Color(0xffffff); // white
+                const color2 = new THREE.Color(0xeb4034); // red
+
+                for (let i = 0; i < particlesCount * 3; i++) {
+                    positions[i] = (Math.random() - 0.5) * 20; // x, y, z
+                    sizes[i/3] = Math.random() * 0.1;
+                    
+                    // Assign colors
+                    if (Math.random() > 0.5) {
+                        color1.toArray(colors, i - (i % 3));
+                    } else {
+                        color2.toArray(colors, i - (i % 3));
+                    }
+                }
+
+                particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+                particlesGeometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+                particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+                const particlesMaterial = new THREE.PointsMaterial({
+                    size: 0.05,
+                    vertexColors: true,
+                    transparent: true,
+                    blending: THREE.AdditiveBlending,
+                    sizeAttenuation: true
+                });
+
+                const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+                scene.add(particles);
+
+                // Mouse movement
+                const mouse = { x: 0, y: 0 };
+                window.addEventListener('mousemove', (event) => {
+                    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+                    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+                });
+
+                camera.position.z = 2.5;
+
+                // Animation Loop
+                const animate = () => {
+                    requestAnimationFrame(animate);
+
+                    particles.rotation.x += 0.0005;
+                    particles.rotation.y += 0.0008;
+
+                    // Move particles based on mouse
+                    camera.position.x += (mouse.x * 0.5 - camera.position.x) * 0.05;
+                    camera.position.y += (mouse.y * 0.5 - camera.position.y) * 0.05;
+                    camera.lookAt(scene.position);
+
+                    renderer.render(scene, camera);
+                };
+
+                animate();
+            } catch (error) {
+                console.error("An error occurred during Three.js initialization:", error);
+            }
+        };
+    </script>
+</body>
+</html>

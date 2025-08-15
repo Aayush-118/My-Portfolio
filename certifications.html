@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certifications - Aayush's Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #141414;
+            color: #fff;
+            margin: 0;
+            background: linear-gradient(
+             rgba(34, 32, 32, 0.95), 
+             rgba(20, 20, 20, 0.95)
+         ),
+             url('https://aldianews.com/sites/default/files/articles/619306-bg-full-netflix-grid-v2.desktop.jpg') no-repeat center center fixed;
+                background-size: cover;
+                min-height: 100vh;
+                color: #fff;
+
+            
+        }
+        .font-bebas {
+            font-family: 'Bebas Neue', cursive;
+        }
+        .navbar {
+            background: linear-gradient(to bottom, rgba(20, 20, 20, 1) 0%, rgba(20, 20, 20, 0) 100%);
+            transition: background-color 0.4s ease;
+        }
+        .navbar.scrolled {
+            background-color: #141414;
+        }
+        .hero-section {
+            height: 80vh;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            padding: 4rem;
+            animation: zoomInBg 25s infinite alternate;
+        }
+        @keyframes zoomInBg {
+            from { background-size: 100% auto; }
+            to { background-size: 115% auto; }
+        }
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(20, 20, 20, 1) 20%, rgba(20, 20, 20, 0) 60%), linear-gradient(to right, rgba(20, 20, 20, 1) 5%, rgba(20, 20, 20, 0) 50%);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 45%;
+        }
+        .hero-text-animate {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        .hero-text-animate.delay-1 { animation-delay: 0.2s; }
+        .hero-text-animate.delay-2 { animation-delay: 0.4s; }
+        .hero-text-animate.delay-3 { animation-delay: 0.6s; }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .content-row {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            margin-bottom: 3rem;
+        }
+        .content-row.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .row-wrapper {
+            position: relative;
+        }
+        .row-container {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none;  /* IE and Edge */
+            scroll-behavior: smooth;
+            padding: 1rem 4rem; /* Padding to prevent arrows from overlapping content and for hover scale */
+            margin: 0 -4rem; /* Negative margin to align with page padding */
+        }
+        .row-container::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, and Opera */
+        }
+        .item-card {
+            background-color: #1f1f1f;
+            border-radius: 0.25rem;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            flex-shrink: 0;
+            width: calc(100% / 5 - 1rem); /* 5 cards per row */
+        }
+        .item-card:hover {
+            transform: scale(1.2);
+            z-index: 20;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75);
+        }
+        .item-card .info-box {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #1f1f1f;
+            padding: 1rem;
+            transform: translateY(100%);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .item-card:hover .info-box {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .card-thumbnail {
+            aspect-ratio: 16 / 9;
+        }
+        .scroll-arrow {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 4rem;
+            background-color: rgba(20, 20, 20, 0.5);
+            color: white;
+            border: none;
+            font-size: 2.5rem;
+            cursor: pointer;
+            z-index: 30;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .row-wrapper:hover .scroll-arrow {
+            opacity: 1;
+        }
+        .scroll-arrow.left { left: 0; }
+        .scroll-arrow.right { right: 0; }
+        .scroll-arrow:hover { background-color: rgba(20, 20, 20, 0.8); }
+        .scroll-arrow.hidden { display: none; }
+        .top-pick-banner {
+            position: absolute;
+            top: 10px;
+            left: -30px;
+            background-color: #E50914;
+            color: white;
+            padding: 5px 30px;
+            font-size: 12px;
+            font-weight: bold;
+            transform: rotate(-45deg);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .modal-overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            transform: translateY(20px) scale(0.98);
+            opacity: 0;
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .btn-primary {
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+        .btn-primary:hover {
+            transform: scale(1.05);
+            background-color: #f40612;
+        }
+        .profile-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: rgba(20, 20, 20, 0.9);
+            border: 1px solid rgba(128, 128, 128, 0.2);
+            border-radius: 4px;
+            width: 200px;
+            margin-top: 10px;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        .profile-dropdown.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav id="navbar" class="navbar fixed top-0 left-0 right-0 z-50 px-4 md:px-12 py-4 flex justify-between items-center">
+        <div class="flex items-center space-x-8">
+            <h1 class="font-bebas text-4xl tracking-widest text-red-600">AAYUSH</h1>
+            <ul class="hidden lg:flex items-center space-x-4">
+                <li><a href="recruiter.html" class="cursor-pointer hover:text-gray-300 transition-colors">Home</a></li>
+                <li><a href="recruiter.html#projects" class="cursor-pointer hover:text-gray-300 transition-colors">Projects</a></li>
+                <li><a href="#" class="font-semibold cursor-pointer">Certifications</a></li>
+                <li><a href="recruiter.html#contact" class="cursor-pointer hover:text-gray-300 transition-colors">Contact</a></li>
+            </ul>
+        </div>
+        <div class="flex items-center space-x-6">
+            <i class="fas fa-search cursor-pointer text-xl hover:text-gray-300 transition-colors"></i>
+            <i class="fas fa-bell cursor-pointer text-xl hover:text-gray-300 transition-colors"></i>
+            <div class="relative" id="profile-menu-trigger">
+                <img src="https://placehold.co/40x40/10B981/FFFFFF?text=R" alt="Recruiter Profile" class="w-10 h-10 rounded-md cursor-pointer">
+                <div id="profile-dropdown" class="profile-dropdown">
+                    <div class="flex items-center p-3">
+                        <img src="https://placehold.co/40x40/10B981/FFFFFF?text=R" alt="Recruiter Profile" class="w-10 h-10 rounded-md mr-3">
+                        <div>
+                            <p class="font-bold">Recruiter</p>
+                            <p class="text-xs text-gray-400">Hiring Manager</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="cert-hero" class="hero-section" style="background-image: url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1600&q=80');"
+        data-title="Responsive Web Development with modern HTML5 and CSS3"
+        data-cert-title="Responsive Web Development with modern HTML5 and CSS3" 
+        data-cert-issuer="Infosys" 
+        data-cert-img="web development.png" 
+        data-cert-desc="Validates foundational understanding of the training, delivered via the Infosys Springboard platform, focused on using HTML and CSS to create websites that provide an optimal viewing experience across a wide range of devices, from mobile phones to desktop computers." 
+        data-cert-skills="Key Concepts, HTML5 , CSS3, JavaScript, Responsive Design, Media Queries"
+        data-cert-id=""
+        data-cert-date="Issued: November 10, 2024"
+        data-cert-verify-url="#">
+        <div class="hero-content">
+            <p class="font-bebas text-xl tracking-wider text-red-500 hero-text-animate delay-1">Featured Credential</p>
+            <h2 class="text-4xl md:text-5xl font-extrabold hero-text-animate delay-2">Responsive Web Development with modern HTML5 and CSS3</h2>
+            <p class="mt-4 text-gray-200 max-w-lg hero-text-animate delay-3">
+                Demonstrates foundational knowledge of web development concepts, Frontend, and terminology.
+            </p>
+            <div class="mt-6 hero-text-animate delay-3">
+                <button id="hero-details-btn" class="btn-primary bg-red-600 text-white font-bold px-8 py-3 rounded inline-flex items-center space-x-2">
+                    <i class="fas fa-info-circle"></i>
+                    <span>View Details</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="px-4 md:px-12 py-12 -mt-24 relative z-10 space-y-12">
+        <section class="content-row">
+            <h3 class="text-2xl font-bold mb-4">Web Development</h3>
+            <div class="row-wrapper">
+                <div class="row-container">
+                    <div class="item-card certification-card" data-cert-title="Responsive Web Development with HTML and CSS" data-cert-issuer="Responsive Web Development" data-cert-img="web development.png" data-cert-desc="Validates foundational understanding of the training, delivered via the Infosys Springboard platform, focused on using HTML and CSS to create websites that provide an optimal viewing experience across a wide range of devices, from mobile phones to desktop computers." data-cert-skills="Key Concepts, HTML5 , CSS3, JavaScript, Responsive Design, Media Queries" data-cert-id="" data-cert-date="Issued: November 10, 2024" data-cert-verify-url="#">
+                        <div class="top-pick-banner">TOP PICK</div>
+                        <img src="web development.png" alt="Web Development Certificate" class="card-thumbnail w-full h-full object-cover">
+                        <div class="info-box"><p class="font-bold text-sm truncate">Responsive Web Development with HTML and CSS</p></div>
+                    </div>
+                    <div class="item-card certification-card" data-cert-title="JavaScript Fundamentals" data-cert-issuer="Infosys" data-cert-img="javascript certificate.png" data-cert-desc="This course provided a strong foundation in JavaScript, the versatile scripting language that powers dynamic and interactive web applications" data-cert-skills="JavaScript, Backend, Libraries, Security, Array, File Handling, Support" data-cert-id="" data-cert-date="Issued: May 9, 2025" data-cert-verify-url="#">
+                        <img src="javascript certificate.png" alt="Azure Certificate" class="card-thumbnail w-full h-full object-cover">
+                        <div class="info-box"><p class="font-bold text-sm truncate">JavaScript Fundamentals</p></div>
+                    </div>
+                    <div class="item-card certification-card" data-cert-title="CSS 3" data-cert-issuer="Infosys" data-cert-img="css 3 certificate.png" data-cert-desc="This course covered the principles of Cascading Style Sheets (CSS3) for designing visually engaging and responsive websites. The focus was on applying modern styling techniques to create layouts that are both aesthetically pleasing and functional across various devices and screen sizes." data-cert-skills="CSS3, Frontend, Security, Tailwind CSS, Support" data-cert-id="" data-cert-date="Issued: May 23, 2025" data-cert-verify-url="#">
+                        <img src="css 3 certificate.png" alt="Azure Certificate" class="card-thumbnail w-full h-full object-cover">
+                        <div class="info-box"><p class="font-bold text-sm truncate">CSS 3</p></div>
+                    </div>
+                    <div class="item-card certification-card" data-cert-title="CSS 3" data-cert-issuer="Infosys" data-cert-img="html5 certificate.png" data-cert-desc="This course provided a comprehensive understanding of HTML5, the foundational language for creating and structuring content on the web. The curriculum focused on mastering the latest HTML5 standards to build well-formed, semantic, and accessible web pages." data-cert-skills="Basics of HTML5, Page Handling, Libraries, Privacy, Pricing, Support" data-cert-id="" data-cert-date="Issued: May 23, 2025" data-cert-verify-url="#">
+                        <img src="html5 certificate.png" alt="Azure Certificate" class="card-thumbnail w-full h-full object-cover">
+                        <div class="info-box"><p class="font-bold text-sm truncate">HTML5 - The Language</p></div>
+                    </div>
+                    <!-- Add more cards -->
+                </div>
+                <button class="scroll-arrow left" title="Scroll left"><i class="fas fa-chevron-left"></i></button>
+                <button class="scroll-arrow right" title="Scroll right"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </section>
+
+        <section class="content-row">
+            <h3 class="text-2xl font-bold mb-4">Robotics & Artificial Intelligence</h3>
+            <div class="row-wrapper">
+                <div class="row-container">
+                    <div class="item-card certification-card" data-cert-title="Certified Robotics Course" data-cert-issuer="Infosys" data-cert-img="robotics certificate.png" data-cert-desc="This foundational course provided a comprehensive introduction to the multidisciplinary field of robotics. The curriculum focused on the core principles of robot design, mechanics, control systems, and programming, establishing a strong base for understanding how robotic systems are built and operated. This training was completed through Infosys Springboard, a digital learning platform by Infosys" data-cert-skills="Robotics, Arduino+, Iot, Embedded C, Sensor Manipulation" data-cert-id="" data-cert-date="Issued: March 29, 2025" data-cert-verify-url="#">
+                        <img src="robotics certificate.png" alt="JavaScript Certificate" class="card-thumbnail w-full h-full object-cover">
+                        <div class="info-box"><p class="font-bold text-sm truncate">Certified JavaScript Developer</p></div>
+                    </div>
+                    <div class="item-card certification-card" data-cert-title="Artificial Intelligence" data-cert-issuer="Infosys" data-cert-img="AI certificate.png" data-cert-desc="This certificate was awarded for the successful completion of a foundational course in Artificial Intelligence (AI). The program provided a broad overview of AI, covering its history, core concepts, and the various subfields that constitute modern AI. The training, offered through Infosys Springboard, was designed to build a strong understanding of the principles behind intelligent systems and their real-world applications." data-cert-skills="Core AI Concepts, AI Applications, Ethical Considerations in AI, AI Tools, Accessibility" data-cert-id="" data-cert-date="Issued: May 9, 2025" data-cert-verify-url="#">
+                        <img src="AI certificate.png" alt="RWD Certificate" class="card-thumbnail w-full h-full object-cover">
+                        <div class="info-box"><p class="font-bold text-sm truncate">Intoduction to Artificial Intelligence</p></div>
+                    </div>
+                    <!-- Add more cards -->
+                </div>
+                <button class="scroll-arrow left" title="Scroll left"><i class="fas fa-chevron-left"></i></button>
+                <button class="scroll-arrow right" title="Scroll right"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </section>
+
+
+        <section class="content-row">
+            <h3 class="text-2xl font-bold mb-4">The Language Arena</h3>
+            <div class="row-wrapper">
+                <div class="row-container">
+                    <div class="item-card certification-card" data-cert-title="Basics of Python Course" data-cert-issuer="Infosys" data-cert-img="python certificate.png" data-cert-desc="This certificate marks the successful completion of a foundational course in Python programming. The curriculum, provided through the Infosys Springboard platform, focused on establishing a strong understanding of Python's core syntax, data structures, and fundamental programming principles" data-cert-skills="python, Core Syntax, Data Types, Control Flow, Functions" data-cert-id="" data-cert-date="Issued: November 9, 2024" data-cert-verify-url="#">
+                        <img src="python certificate.png" alt="JavaScript Certificate" class="card-thumbnail w-full h-full object-cover">
+                        <div class="info-box"><p class="font-bold text-sm truncate">Certified JavaScript Developer</p></div>
+                    </div>
+                    <div class="item-card certification-card" data-cert-title="C Language Course" data-cert-issuer="Infosys" data-cert-img="c lang certificate.png" data-cert-desc="This certificate was awarded for successfully completing a comprehensive course in the C programming language. This training, delivered via the Infosys Springboard platform, covered the essential concepts of this powerful, low-level language, emphasizing procedural programming, memory management, and core computer science principles." data-cert-skills="Fundamental Syntax, Control Structures, Pointers, Functions, Arrays" data-cert-id="" data-cert-date="Issued: November 12, 2024" data-cert-verify-url="#">
+                        <img src="C lang certificate.png" alt="RWD Certificate" class="card-thumbnail w-full h-full object-cover">
+                        <div class="info-box"><p class="font-bold text-sm truncate">Intoduction to Artificial Intelligence</p></div>
+                    </div>
+                    <!-- Add more cards -->
+                </div>
+                <button class="scroll-arrow left" title="Scroll left"><i class="fas fa-chevron-left"></i></button>
+                <button class="scroll-arrow right" title="Scroll right"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </section>
+
+        <section class="content-row">
+            <h3 class="text-2xl font-bold mb-4">Achievements & Awards</h3>
+            <div class="row-wrapper">
+                <div class="row-container">
+                    <div class="item-card achievement-card" data-title="Hackathon Winner - 1st Place" data-desc="Led a team of four to build a real-time collaborative coding environment, winning first place for innovation and technical execution at the Annual CodeFest 2023.">
+                        <div class="card-thumbnail w-full h-full bg-gray-800 flex items-center justify-center">
+                            <i class="fas fa-trophy text-6xl text-yellow-400"></i>
+                        </div>
+                        <div class="info-box"><p class="font-bold text-sm truncate">Hackathon Winner - 1st Place</p></div>
+                    </div>
+                     <div class="item-card achievement-card" data-title="Published Technical Article" data-desc="Authored a popular article on 'Modern CSS Techniques' for a well-known tech publication, reaching over 50,000 readers.">
+                        <div class="card-thumbnail w-full h-full bg-gray-800 flex items-center justify-center">
+                            <i class="fas fa-newspaper text-6xl text-blue-400"></i>
+                        </div>
+                        <div class="info-box"><p class="font-bold text-sm truncate">Published Technical Article</p></div>
+                    </div>
+                    <div class="item-card achievement-card" data-title="Employee of the Quarter" data-desc="Recognized for outstanding performance, leadership, and significant contributions to the flagship project in Q2 2023.">
+                        <div class="card-thumbnail w-full h-full bg-gray-800 flex items-center justify-center">
+                           <i class="fas fa-star text-6xl text-green-400"></i>
+                        </div>
+                        <div class="info-box"><p class="font-bold text-sm truncate">Employee of the Quarter</p></div>
+                    </div>
+                    <!-- Add more cards -->
+                </div>
+                <button class="scroll-arrow left" title="Scroll left"><i class="fas fa-chevron-left"></i></button>
+                <button class="scroll-arrow right" title="Scroll right"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Description Modal -->
+    <div id="description-modal" class="modal-overlay fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4">
+        <div class="modal-content bg-[#181818] rounded-lg max-w-3xl w-full overflow-hidden">
+             <div class="relative">
+                <img id="modal-desc-img" src="" class="w-full h-64 object-cover" alt="Certificate Banner">
+                <button id="modal-desc-close-btn" class="absolute top-4 right-4 bg-gray-900/60 rounded-full w-10 h-10 text-white hover:bg-white hover:text-black transition-colors"><i class="fas fa-times"></i></button>
+                <div class="absolute bottom-0 left-0 p-6 bg-gradient-to-t from-[#181818] via-[#181818] to-transparent w-full">
+                    <h2 id="modal-desc-title" class="text-4xl font-bebas tracking-wider"></h2>
+                </div>
+             </div>
+            <div id="modal-body-content" class="p-6">
+                <!-- Content will be injected by JS -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Image Viewer Modal -->
+    <div id="image-modal" class="modal-overlay fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-[60] p-4">
+        <button id="modal-img-close-btn" class="absolute top-4 right-4 bg-gray-900/50 rounded-full w-10 h-10 text-white text-xl"><i class="fas fa-times"></i></button>
+        <img id="modal-cert-img" src="" class="max-w-full max-h-full object-contain" alt="Certificate Image">
+    </div>
+
+    <script>
+        // --- Modal Logic ---
+        const descriptionModal = document.getElementById('description-modal');
+        const imageModal = document.getElementById('image-modal');
+        const descCloseBtn = document.getElementById('modal-desc-close-btn');
+        const imgCloseBtn = document.getElementById('modal-img-close-btn');
+        const heroDetailsBtn = document.getElementById('hero-details-btn');
+        const certHero = document.getElementById('cert-hero');
+        let currentCertImg = '';
+
+        const openDescriptionModal = (cardElement) => {
+            // Accept both .certification-card and the hero section
+            const isCertification = cardElement.classList.contains('certification-card') || cardElement.id === 'cert-hero';
+            const modalBody = document.getElementById('modal-body-content');
+
+            document.getElementById('modal-desc-title').textContent = cardElement.dataset.title || cardElement.dataset.certTitle;
+            const bannerImgSrc = cardElement.querySelector('img')?.src || cardElement.dataset.certImg;
+            if (bannerImgSrc) {
+                document.getElementById('modal-desc-img').src = bannerImgSrc.replace(/500x281/, '1280x720');
+            } else {
+                document.getElementById('modal-desc-img').src = 'https://placehold.co/1280x720/181818/181818?text=';
+            }
+
+            if (isCertification) {
+                // Use fallback for hero section if no certId, etc.
+                const {
+                    certIssuer = '',
+                    certDesc = '',
+                    certVerifyUrl = '#',
+                    certSkills = '',
+                    certId = '',
+                    certDate = '',
+                    certImg = ''
+                } = cardElement.dataset;
+                currentCertImg = certImg;
+                modalBody.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <p class="font-semibold">Issued by: ${certIssuer}</p>
+                        <p class="text-sm text-gray-400">${certDate}</p>
+                    </div>
+                    <p class="text-gray-300 mb-6">${certDesc}</p>
+                    <div class="mb-6">
+                        <h4 class="font-bold text-gray-300 mb-2">Skills Validated</h4>
+                        <div class="flex flex-wrap gap-2">
+                            ${certSkills.split(',').map(skill => `<span class="bg-gray-700 text-gray-200 px-3 py-1 rounded-full text-xs">${skill.trim()}</span>`).join('')}
+                        </div>
+                    </div>
+                    <div class="text-xs text-gray-500 mb-6">Credential ID: ${certId}</div>
+                    <div class="flex space-x-4">
+                        <button id="view-cert-btn" class="btn-primary bg-red-600 text-white font-bold px-6 py-3 rounded flex-grow flex items-center justify-center space-x-2">
+                            <i class="fas fa-certificate"></i>
+                            <span>View Certificate</span>
+                        </button>
+                        <a href="${certVerifyUrl || '#'}" target="_blank" class="bg-gray-600 text-white font-bold px-6 py-3 rounded flex-grow flex items-center justify-center space-x-2 hover:bg-gray-500 transition-colors">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Verify</span>
+                        </a>
+                    </div>
+                `;
+                document.getElementById('view-cert-btn').addEventListener('click', () => {
+                    document.getElementById('modal-cert-img').src = currentCertImg;
+                    imageModal.classList.add('active');
+                    closeDescModal();
+                });
+            } else {
+                modalBody.innerHTML = `<p class="text-gray-300">${cardElement.dataset.desc}</p>`;
+            }
+
+            descriptionModal.classList.add('active');
+        };
+
+        document.querySelectorAll('.item-card').forEach(card => card.addEventListener('click', () => openDescriptionModal(card)));
+        heroDetailsBtn.addEventListener('click', () => openDescriptionModal(certHero));
+
+        const closeDescModal = () => descriptionModal.classList.remove('active');
+        const closeImgModal = () => imageModal.classList.remove('active');
+
+        descCloseBtn.addEventListener('click', closeDescModal);
+        descriptionModal.addEventListener('click', (e) => { if (e.target === descriptionModal) closeDescModal(); });
+        imgCloseBtn.addEventListener('click', closeImgModal);
+        imageModal.addEventListener('click', (e) => { if (e.target === imageModal) closeImgModal(); });
+
+        // --- Row Scroller Logic ---
+        document.querySelectorAll('.row-wrapper').forEach(wrapper => {
+            const row = wrapper.querySelector('.row-container');
+            const leftArrow = wrapper.querySelector('.scroll-arrow.left');
+            const rightArrow = wrapper.querySelector('.scroll-arrow.right');
+            const scrollAmount = row.clientWidth * 0.8;
+
+            const updateArrows = () => {
+                const maxScrollLeft = row.scrollWidth - row.clientWidth;
+                leftArrow.classList.toggle('hidden', row.scrollLeft <= 10);
+                rightArrow.classList.toggle('hidden', row.scrollLeft >= maxScrollLeft - 10);
+            };
+
+            leftArrow.addEventListener('click', () => { row.scrollLeft -= scrollAmount; });
+            rightArrow.addEventListener('click', () => { row.scrollLeft += scrollAmount; });
+            row.addEventListener('scroll', updateArrows);
+            new ResizeObserver(updateArrows).observe(row);
+            updateArrows();
+        });
+
+        // --- General Page Animations ---
+        const navbar = document.getElementById('navbar');
+        window.onscroll = () => { window.scrollY > 50 ? navbar.classList.add('scrolled') : navbar.classList.remove('scrolled'); };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.content-row').forEach(section => observer.observe(section));
+        
+        // --- Profile Dropdown Logic ---
+        const profileMenuTrigger = document.getElementById('profile-menu-trigger');
+        const profileDropdown = document.getElementById('profile-dropdown');
+        if(profileMenuTrigger) {
+            profileMenuTrigger.addEventListener('click', (event) => {
+                event.stopPropagation();
+                profileDropdown.classList.toggle('show');
+            });
+        }
+        window.addEventListener('click', (event) => {
+            if (profileDropdown && !profileMenuTrigger.contains(event.target)) {
+                profileDropdown.classList.remove('show');
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aayush's Portfolio - Visitor</title>
+    <!-- Tailwind CSS for utility classes -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for Inter and Bebas Neue -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Base styles for the entire page */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* The body has a solid background color. The main content area will have a different background. */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #141414; /* Set a dark background color for the hero section */
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        .font-bebas {
+            font-family: 'Bebas Neue', cursive;
+        }
+
+        /* Enhanced navbar with slight 3D pop on scroll */
+        .navbar {
+            background: linear-gradient(to bottom, rgba(20, 20, 20, 0) 0%, rgba(20, 20, 20, 0) 100%);
+            transition: background-color 0.4s ease, transform 0.4s ease;
+        }
+        .navbar.scrolled {
+            background-color: #141414;
+            transform: translateY(-5px) translateZ(10px);
+        }
+
+        /* New styles for the particle network background */
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; /* Place it behind the content */
+            opacity: 0.8; /* Subtle transparency */
+        }
+
+        /* FIXED: Added the background image back to the hero section. The canvas will be layered on top of it. */
+        .hero-section {
+            position: relative;
+            background-image: linear-gradient(to top, rgba(20, 20, 20, 1) 0%, rgba(20, 20, 20, 0.4) 30%), url('https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            z-index: 2; /* Ensure content is on top of the canvas */
+            overflow: hidden; /* Hide the blurred canvas overflow */
+        }
+        
+        /* New initial state for content to animate in */
+        .content-row {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .content-row.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* New keyframe for a pulsing effect on the contact button */
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(229, 9, 20, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(229, 9, 20, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(229, 9, 20, 0); }
+        }
+
+        .contact-btn:hover {
+            animation: pulse 2s infinite;
+        }
+
+        /* Existing flip card styles */
+        .flip-card {
+            perspective: 1000px;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+            background-color: #E50914;
+        }
+        
+        /* Enhanced project card with 3D transform on hover */
+        .project-card {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .project-card:hover {
+             transform: translateY(-10px) scale(1.05);
+             box-shadow: 0 15px 35px rgba(229, 9, 20, 0.3);
+        }
+
+        /* The main content area with the different background image */
+        .main-with-bg {
+            background: linear-gradient(
+                rgba(24, 24, 24, 0.861),
+                rgba(24, 24, 24, 0.95)
+            ),
+            url('https://aldianews.com/sites/default/files/articles/619306-bg-full-netflix-grid-v2.desktop.jpg') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh; /* Set a min height to ensure the background is visible */
+        }
+    </style>
+</head>
+<body class="text-white">
+
+    <!-- Navigation Bar -->
+    <nav id="navbar" class="navbar fixed top-0 left-0 right-0 z-30 px-4 md:px-12 py-4 flex justify-between items-center">
+        <h1 class="font-bebas text-4xl tracking-widest text-red-600">AAYUSH</h1>
+        <div class="flex items-center space-x-4">
+            <span class="text-gray-300">Welcome, Visitor</span>
+            <img src="https://placehold.co/32x32/6366F1/FFFFFF?text=V" alt="Visitor Profile" class="w-8 h-8 rounded">
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <!-- FIXED: The hero section height is now set to h-screen to make it full height. -->
+    <header class="hero-section h-screen flex items-center">
+        <!-- The new canvas for the particle network animation -->
+        <canvas id="hero-canvas"></canvas>
+        <div class="px-4 md:px-16 max-w-2xl z-20">
+            <h2 class="text-5xl md:text-7xl font-extrabold leading-tight">Hi, I'm Aayush.</h2>
+            <p class="mt-4 text-lg md:text-xl text-gray-300">
+                A passionate developer and designer creating modern, intuitive, and beautiful web experiences. Welcome to my corner of the internet.
+            </p>
+            <a href="#about" class="mt-8 inline-block bg-red-600 text-white font-bold px-8 py-3 rounded hover:bg-red-700 transition-colors">
+                Learn More About Me
+            </a>
+        </div>
+    </header>
+    
+    <!-- Content Section -->
+    <main id="about" class="main-with-bg px-4 md:px-12 space-y-20 py-20">
+        
+        <!-- About Me Section -->
+        <div class="content-row max-w-5xl mx-auto text-center">
+            <h3 class="text-3xl font-bold mb-4">A Little Bit About Me</h3>
+            <p class="text-lg text-gray-400 leading-relaxed">
+                I'm a Information Technology student with a deep love for technology and design. My goal is to bridge the gap between complex technical challenges and beautiful, user-friendly interfaces. Whether it's building a full-stack application or designing a hardware related project, I'm driven by the desire to create things that are not only functional but also enjoyable to use. When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or searching for the perfect cup of coffee.
+            </p>
+        </div>
+
+        <!-- What I Do Section -->
+        <div class="content-row">
+            <h3 class="text-3xl font-bold mb-8 text-center">What I Do</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Frontend Card -->
+                <div class="flip-card h-64">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front bg-[#2a2a2a]">
+                            <i class="fas fa-desktop text-6xl text-red-500 mb-4"></i>
+                            <h4 class="text-2xl font-bold">Web Development</h4>
+                        </div>
+                        <div class="flip-card-back">
+                            <p>I build responsive and interactive user interfaces using modern frameworks like HTML, CSS, JavaScript, and React, with a strong focus on performance and user experience.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Backend Card -->
+                <div class="flip-card h-64">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front bg-[#2a2a2a]">
+                            <i class="fas fa-server text-6xl text-red-500 mb-4"></i>
+                            <h4 class="text-2xl font-bold">Robotics & Iot</h4>
+                        </div>
+                        <div class="flip-card-back">
+                            <p>I design and build projects related to robotics and Iot, using Arduino, Raspberry Pi, ESP32, and other microcontrollers. I have made projects like Accident Prevention Glasses(Patented), line follower robot, obstacle avoiding robot and many more.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- UI/UX Card -->
+                <div class="flip-card h-64">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front bg-[#2a2a2a]">
+                            <i class="fas fa-pencil-ruler text-6xl text-red-500 mb-4"></i>
+                            <h4 class="text-2xl font-bold">Data Analytics</h4>
+                        </div>
+                        <div class="flip-card-back">
+                            <p>I have made projects like Accident Severity Prediction Using AIML, Tableau Dashboard, EPI info dashboard. These depict a vast knowledge in data analytics and data visualization tools along with the use of AIML along with the help of AI and tools.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured Work Section -->
+        <div class="content-row">
+            <h3 class="text-3xl font-bold mb-8 text-center">Featured Work</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                 <!-- Project Card 1 -->
+                <div class="project-card bg-[#2a2a2a] rounded-lg overflow-hidden group">
+                    <img src="APG.jpg" class="w-full h-56 object-cover" alt="Project 1">
+                    <div class="p-6">
+                        <h4 class="text-2xl font-bold">Accident Prevention Glasses</h4>
+                        <p class="text-gray-400 mt-2">A Deep research on wearable ergonomics, power consumption analysis using BLE, cost effective solution, with brain stimulating frequencies haptic alerts and feedbacks keeps the driver to stay awake and prevents accidents.</p>
+                        <a href="https://drive.google.com/drive/folders/1qVYZv1uicLI0Z0qvrrcGdGn0PoRpeYrl?usp=sharing" class="inline-block mt-4 text-red-500 font-semibold hover:text-red-400">View Project <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+                </div>
+                 <!-- Project Card 2 -->
+                <div class="project-card bg-[#2a2a2a] rounded-lg overflow-hidden group">
+                    <img src="output of Aiml project.jpg" class="w-full h-56 object-cover" alt="Project 2">
+                    <div class="p-6">
+                        <h4 class="text-2xl font-bold">AIML Project</h4>
+                        <p class="text-gray-400 mt-2">This project tackles the critical task of predicting traffic accident severity by developing two distinct classification models from a real-world dataset ,implemented powerful ensemble methods like Stacking and Voting classifiers, combining algorithms such as RandomForest, XGBoost, and AdaBoost.</p>
+                        <a href="https://github.com/Aayush-W/Accident-Severity-Prediction-Using-AIML" class="inline-block mt-4 text-red-500 font-semibold hover:text-red-400">View Project <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Let's Connect Section -->
+        <div class="content-row text-center max-w-3xl mx-auto">
+            <h3 class="text-4xl font-bold">Let's Build Something Great Together</h3>
+            <p class="text-lg text-gray-400 mt-4">I'm always open to discussing new projects, creative ideas, or opportunities to be part of an ambitious team. Feel free to reach out.</p>
+            <a href="mailto:aayushwalsangikar118@gmail.com" class="contact-btn mt-8 inline-block bg-white text-black font-bold px-10 py-4 rounded hover:bg-gray-200 transition-colors text-lg">
+                Get In Touch
+            </a>
+        </div>
+    </main>
+    
+    <footer class="text-center py-8 border-t border-gray-800">
+        <p class="text-gray-500">© 2025 Aayush. All Rights Violated.</p>
+    </footer>
+
+    <script>
+        // --- Navbar Scroll Effect ---
+        const navbar = document.getElementById('navbar');
+        window.onscroll = () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        };
+
+        // --- Content Scroll Animation ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.content-row').forEach(row => {
+            observer.observe(row);
+        });
+
+        // --- Interactive Particle Network Animation (2D Canvas) ---
+        window.onload = function() {
+            const canvas = document.getElementById('hero-canvas');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let mouse = {
+                x: null,
+                y: null,
+                radius: 150 // The radius of influence for the mouse
+            };
+
+            // Particle constructor
+            function Particle(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 2 + 1;
+                this.baseSpeed = 0.5;
+                this.directionX = (Math.random() * this.baseSpeed) - (this.baseSpeed / 2);
+                this.directionY = (Math.random() * this.baseSpeed) - (this.baseSpeed / 2);
+            }
+
+            // Draw particle
+            Particle.prototype.draw = function() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = '#CFCFCF';
+                ctx.fill();
+            }
+
+            // Update particle position and behavior
+            Particle.prototype.update = function() {
+                // Check if particle hits the edge and bounce
+                if (this.x > canvas.width || this.x < 0) {
+                    this.directionX = -this.directionX;
+                }
+                if (this.y > canvas.height || this.y < 0) {
+                    this.directionY = -this.directionY;
+                }
+
+                this.x += this.directionX;
+                this.y += this.directionY;
+
+                // Mouse interaction - pull particles towards the cursor
+                const dx = mouse.x - this.x;
+                const dy = mouse.y - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < mouse.radius) {
+                    const pullForce = 0.05;
+                    this.x += dx / distance * pullForce;
+                    this.y += dy / distance * pullForce;
+                }
+
+                this.draw();
+            }
+
+            // Create particles
+            function createParticles() {
+                particles = [];
+                const particleCount = (canvas.width * canvas.height) / 10000;
+                for (let i = 0; i < particleCount; i++) {
+                    const x = Math.random() * canvas.width;
+                    const y = Math.random() * canvas.height;
+                    particles.push(new Particle(x, y));
+                }
+            }
+
+            // Draw lines between nearby particles
+            function drawLines() {
+                let opacityValue = 1;
+                for (let a = 0; a < particles.length; a++) {
+                    for (let b = a; b < particles.length; b++) {
+                        const dx = particles[a].x - particles[b].x;
+                        const dy = particles[a].y - particles[b].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+
+                        if (distance < 120) {
+                            opacityValue = 1 - (distance / 120);
+                            ctx.strokeStyle = `rgba(255,255,255,${opacityValue})`;
+                            ctx.lineWidth = 1;
+                            ctx.beginPath();
+                            ctx.moveTo(particles[a].x, particles[a].y);
+                            ctx.lineTo(particles[b].x, particles[b].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            // Animation loop
+            function animate() {
+                requestAnimationFrame(animate);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                }
+                drawLines();
+            }
+
+            // Event listeners
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                createParticles();
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                mouse.x = e.x;
+                mouse.y = e.y;
+            });
+            
+            // Initial setup
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            createParticles();
+            animate();
+        };
+    </script>
+
+</body>
+</html>
